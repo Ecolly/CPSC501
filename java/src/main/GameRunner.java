@@ -10,21 +10,23 @@ public class GameRunner {
 		aGame.add("Chet");
 		aGame.add("Pat");
 		aGame.add("Sue");
-		
+		int currentPlayer = 0;
 		Random rand = new Random();
+
 	
 		do {
-			
-			aGame.roll(rand.nextInt(5) + 1);
+			Player current = aGame.players.get(currentPlayer);
+			aGame.roll(rand.nextInt(5) + 1,current);
 			
 			if (rand.nextInt(9) == 7) {
-				notAWinner = aGame.wrongAnswer();
+				notAWinner = aGame.wrongAnswer(current);
+				currentPlayer++;
+				if (currentPlayer == aGame.players.size()) currentPlayer = 0;
 			} else {
-				notAWinner = aGame.wasCorrectlyAnswered();
+				notAWinner = aGame.wasCorrectlyAnswered(current);
+				currentPlayer++;
+				if (currentPlayer == aGame.players.size()) currentPlayer = 0;
 			}
-			
-			
-			
 		} while (notAWinner);
 		
 	}
